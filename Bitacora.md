@@ -11,7 +11,7 @@
 
 * [Replicación de la topología base]()
 * [Busqueda de los datos de entrada al modelo propuesto]()
-* [Pruebas del modelo base](pruebas-del-modelo-base)
+* [Pruebas del modelo base](#pruebas-del-modelo-base)
 
 ---
 Replicación de la topología base Issa et al.
