@@ -9,13 +9,13 @@
  
 ### Indice:
 
-* [Replicación de la topología base](#1)
-* [Busqueda de los datos de entrada al modelo propuesto](#2)
-* [Pruebas del modelo base](#3)
+* [Replicación de la topología base](user-content--replicación-de-la-topología-base-issa-et-al)
+* [Busqueda de los datos de entrada al modelo propuesto](user-content--busqueda-de-los-datos-de-entrada-al-modelo-propuesto)
+* [Pruebas del modelo base](user-content--pruebas-del-modelo-base)
 
 ---
 
-## <a id="#1"></a> Replicación de la topología base Issa et al.
+## <a id="user-content--replicación-de-la-topología-base-issa-et-al."></a> Replicación de la topología base Issa et al.
 ### Luis Carlos Quesada - 5/10/2022
 Repliqué el modelo de Issa et al. El modelo está descrito en el paper pero describe la capa de entrada como 193 neuronas, anteriormente habíamos hecho extracción de caracteristicas pero el resultado era de más de 228 variables a diferencia de este, por lo que no podemos comprobar de momento que la red neuronal se ajuste a las predicciones descritas en el paper.
 
@@ -25,7 +25,7 @@ Se obtuvo un modelo con la topología descrita en el paper a replicar, sin embar
 <br>
 <br>
 
-## <a id="#2"></a> Busqueda de los datos de entrada al modelo propuesto
+## <a id="user-content--busqueda-de-los-datos-de-entrada-al-modelo-propuesto"></a> Busqueda de los datos de entrada al modelo propuesto
 ### Luis Carlos Quesada - 5/18/2022
 Para poder hacer una clasificación de audio usando la topología de red propuesta en el paper es necesario saber las dimensiones de entrada de los datos, la red tiene 193 variables de entrada y sabemos que hay algunass caracteristicas con tamaños fijos.
 
@@ -72,7 +72,7 @@ $$ -->
 <div align="center"><img style="background: white;" src="svg\zL6jhbHNkE.svg"></div>
 
 
-## <a id="#3"></a> Pruebas del modelo base
+## <a id="user-content--pruebas-del-modelo-base"></a> Pruebas del modelo base
 ### Luis Carlos Quesada - 5/19/2022
 Probé el modelo base con los datos de prueba a ver que pasa, creo que no estan para nada cerca pero podría ser por la forma en que los datos están codificados, estoy casi seguro de eso!
 El modelo original fue entrenado usando softmax como salida para 8 variables, esto hace que sea necesaria una codificación un toque diferente a la que tengo actualmente, más cuando el optimizador es RMSprop y una perdida de sparse_entropy_loss, así que casi de fijo es eso
