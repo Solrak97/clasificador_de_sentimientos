@@ -40,17 +40,32 @@ Contrast se calcula con 6 bandas default pero funciona con n_bands > 1 y retorna
 
 Así que al final, tenemos algo así
 
-$$ 
+<!-- $$ 
 6 + (bands + 1) + bins + 2mel = 193
-$$ 
-$$
+$$ --> 
+
+<div align="center"><img style="background: white;" src="svg\nBcoiMI68J.svg"></div> 
+
+<!-- $$
 mel ∈ [75, 120]
-$$
-$$
+$$ --> 
+
+<div align="center"><img style="background: white;" src="svg\qeqZGbzVgF.svg"></div>
+<!-- $$
 bands > 0
-$$
-$$
+$$ --> 
+
+<div align="center"><img style="background: white;" src="svg\6FeOJvlnpQ.svg"></div>
+<!-- $$
 bins > 0
-$$
+$$ --> 
+
+<div align="center"><img style="background: white;" src="svg\OPBItwIF41.svg"></div>
 
 ### Resultados:
+Por ahora asumiendo los valores default para n_bands y bins podemos movernos por el numero de mels, esto nos deja con 84 mels que es un valor valido ya que 
+<!-- $$ 
+75 <= mel <= 120 
+$$ --> 
+
+<div align="center"><img style="background: white;" src="svg\zL6jhbHNkE.svg"></div>
