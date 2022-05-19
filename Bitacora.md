@@ -9,12 +9,13 @@
  
 ### Indice:
 
-* [Replicación de la topología base]()
-* [Busqueda de los datos de entrada al modelo propuesto]()
+* [Replicación de la topología base](#replicación-de-la-topología-base-issa-et-al.)
+* [Busqueda de los datos de entrada al modelo propuesto](#busqueda-de-los-datos-de-entrada-al-modelo-propuesto)
 * [Pruebas del modelo base](#pruebas-del-modelo-base)
 
 ---
-Replicación de la topología base Issa et al.
+
+## Replicación de la topología base Issa et al.
 ### Luis Carlos Quesada - 5/10/2022
 Repliqué el modelo de Issa et al. El modelo está descrito en el paper pero describe la capa de entrada como 193 neuronas, anteriormente habíamos hecho extracción de caracteristicas pero el resultado era de más de 228 variables a diferencia de este, por lo que no podemos comprobar de momento que la red neuronal se ajuste a las predicciones descritas en el paper.
 
