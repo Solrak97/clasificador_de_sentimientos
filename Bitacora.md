@@ -12,6 +12,7 @@
 * [Replicación de la topología base](#replicación-de-la-topología-base-issa-et-al.)
 * [Busqueda de los datos de entrada al modelo propuesto](#busqueda-de-los-datos-de-entrada-al-modelo-propuesto)
 * [Pruebas del modelo base](#pruebas-del-modelo-base)
+* [Reconstrucción del modelo utilizando Pytorch en lugar de Keras](reconstrucción-del-modelo-utilizando-pytorch-en-lugar-de-keras)
 
 ---
 
@@ -21,7 +22,7 @@ Repliqué el modelo de Issa et al. El modelo está descrito en el paper pero des
 
 ### Resultados:
 Se obtuvo un modelo con la topología descrita en el paper a replicar, sin embargo no se puede comparar los resultados ya que es necesario investigar la dimensionalidad de los datos de entrada pues no fueron descritos en el modelo original. 
-
+---
 <br>
 <br>
 
@@ -71,6 +72,9 @@ $$ -->
 
 <div align="center"><img style="background: white;" src="svg\zL6jhbHNkE.svg"></div>
 
+---
+<br>
+<br>
 
 ## Pruebas del modelo base
 ### Luis Carlos Quesada - 5/19/2022
@@ -79,3 +83,11 @@ El modelo original fue entrenado usando softmax como salida para 8 variables, es
 
 ### Resultados
 Las predicciones son como del 20% en promedio, es terrible pero creo que se puede arreglas mañana porque haciendo un max de las diferentes salidas, si se activa la salida "correcta" digamos, ahí se revisa un toque en la tarde.
+
+---
+<br>
+<br>
+
+## Reconstrucción del modelo utilizando Pytorch en lugar de Keras
+### Luis Carlos Quesada - 5/19/2022
+Ya despues de dormir hice algunas consultas y pareciera que podría ser la función de error, se me recomienda usar una biblioteca a la que esté más familiarizada y a la que se le pueda dar un contról más fino como PyTorch, podría sentarme a hacer un thinkering al error de la red anterior pero el coste de tiempo sería significativamente alto, por lo que mejor voy a crear la red nuevamente usando un modelo de torch, ya que la artquitetura está definida no debería tomar más de una hora.
