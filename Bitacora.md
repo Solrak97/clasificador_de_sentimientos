@@ -22,6 +22,7 @@ Repliqué el modelo de Issa et al. El modelo está descrito en el paper pero des
 
 ### Resultados:
 Se obtuvo un modelo con la topología descrita en el paper a replicar, sin embargo no se puede comparar los resultados ya que es necesario investigar la dimensionalidad de los datos de entrada pues no fueron descritos en el modelo original. 
+
 ---
 <br>
 <br>
