@@ -12,7 +12,7 @@
 * [Replicación de la topología base](#replicación-de-la-topología-base-issa-et-al.)
 * [Busqueda de los datos de entrada al modelo propuesto](#busqueda-de-los-datos-de-entrada-al-modelo-propuesto)
 * [Pruebas del modelo base](#pruebas-del-modelo-base)
-* [Reconstrucción del modelo utilizando Pytorch en lugar de Keras](reconstrucción-del-modelo-utilizando-pytorch-en-lugar-de-keras)
+* [Reconstrucción del modelo utilizando Pytorch en lugar de Keras](#reconstrucción-del-modelo-utilizando-pytorch-en-lugar-de-keras)
 
 ---
 
