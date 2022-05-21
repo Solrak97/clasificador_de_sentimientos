@@ -95,7 +95,7 @@ Ya despues de dormir hice algunas consultas y pareciera que podría ser la funci
 
 Durante el día Gatto me dijo que es posible que no todos los datos sean del mismo tamaño, así que me interesa realizar un analisis preeliminar de los datos mas profundo que el anterior, ya que la vez pasada realmente no sabíamos mucho más que las distribuciones de datos y las composiciones de caracteristicas. Me interesa saber no solo los tamaños si no la posibilidad de una separación no supervisada con algun algoritmo tipo K-means simplemente para visualizar los puntos.
 
-El día terminó siendo bastante productivo, hicimos algunas pruebas separando los datos con un PCA, K-means y graficando, alió terrible!
+El día terminó siendo bastante productivo, hicimos algunas pruebas separando los datos con un PCA, K-means y graficando, salió terrible!
 <div align="center"><img style="background: white;" src="Imgs\prueba-pca.png"></div>
 
 Pero luego utilizando el modelo base hicimos un par de cambios: los datos ahora son pasados por un filtro que los escala y normaliza, luego las etiquetas fueron modificadas para hacer la predicción con one hot encoding en lugar de etiquetas ordinale.
