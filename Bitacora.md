@@ -98,10 +98,10 @@ Durante el día Gatto me dijo que es posible que no todos los datos sean del mis
 El día terminó siendo bastante productivo, hicimos algunas pruebas separando los datos con un PCA, K-means y graficando, salió terrible!
 <div align="center"><img style="background: white;" src="Imgs\prueba-pca.png"></div>
 
-Pero luego utilizando el modelo base hicimos un par de cambios: los datos ahora son pasados por un filtro que los escala y normaliza, luego las etiquetas fueron modificadas para hacer la predicción con one hot encoding en lugar de etiquetas ordinale.
+Pero luego utilizando el modelo base hicimos un par de cambios: los datos ahora son pasados por un filtro que los escala y normaliza, luego las etiquetas fueron modificadas para hacer la predicción con one hot encoding en lugar de etiquetas ordinales.
 
 ### Resultados:
-El modelo fue entrenado 700 epocas y alcanzó una precisión de 99%, lastimosamente esto es un obvio overfitting pues al revisar con el dataset de testing solo se alcanza un 46% de accuracy.
+El modelo fue entrenado 700 epocas y alcanzó una precisión de 99%, lastimosamente esto es un obvio overfitting pues al revisar con el dataset de testing solo se alcanza un 46% de accuracy, aun así es mejor que el 20% de ayer.
 
 En la tarde-malana del 21 esperamos aplicar finalmente el entrenamiento descrito en el paper, utilizando cross validation. 
 
