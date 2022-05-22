@@ -106,5 +106,21 @@ El modelo fue entrenado 700 epocas y alcanzó una precisión de 99%, lastimosame
 En la tarde-malana del 21 esperamos aplicar finalmente el entrenamiento descrito en el paper, utilizando cross validation. 
 
 ---
+<br>
+<br>
 
+## Data augmentation
+### Luis Carlos Quesada - 5/21/2022
+Luego de aplicar los metodos de data augmentation que se mencionaban en el paper llegamos a tener resultados de 99% en entrenamiento y 98% en testing, esto me pareció demasiado sospechoso y pasé casi 6 horas buscando que paso, el data augmentation que se describe en el paper realmente no cambia los datos en la dimensión espectral, unicamente en la dimensión de tiempo, esto deja varia preguntas porque si ninguno de los modelos descritos en el paper utilizan la dimensión de tiempo ¿cual es el sentido de hacer esto?
+
+Al crear copias de datos que tienen una forma espectral tan similar, se dividen los datos en training y testing, los datos en testing probablemente tengan una copia muy similr en el training por la razon mencionada anteriormente, así que las altas predicciones de los datos de testing se dan por tener copias de estos en el training.
+
+Ya quiero terminar la replicación, cada vez que veo el experimento original del paper le encuentro más y más fallas y no me parece que sea un metodo correcto o que si quiera los resultados reportados sean replicables.
+
+### Resultados:
+Descubrimos que si se usan caracteristicas espectrales del sonido, una tecnica de data augmentation que haga cambios sobre el sonido puede no ser la mejor idea, tal vez si esto se aplica unicamente a los datos de training y no a los de testing, pero de todas formas hay que considerar si la diferencia de los datos es lo suficientemente significativa.
+
+### Nota: 
+Llenen la bitacora cada vez que hacen algo para que no se repita lo de hoy.
+---
 
