@@ -13,6 +13,9 @@
 * [Busqueda de los datos de entrada al modelo propuesto](#busqueda-de-los-datos-de-entrada-al-modelo-propuesto)
 * [Pruebas del modelo base](#pruebas-del-modelo-base)
 * [Reconstrucción del modelo utilizando Pytorch en lugar de Keras](#reconstrucción-del-modelo-utilizando-pytorch-en-lugar-de-keras)
+* [Data augmentation](#data-augmentation)
+* [Pruebas con el modelo replicado](#pruebas-con-el-modelo-replicado)
+
 
 ---
 
@@ -122,5 +125,24 @@ Descubrimos que si se usan caracteristicas espectrales del sonido, una tecnica d
 
 ### Nota: 
 Llenen la bitacora cada vez que hacen algo para que no se repita lo de hoy.
+
 ---
+<br>
+<br>
+
+## Pruebas con el modelo replicado
+### Luis Carlos Quesada - 5/22/2022
+Hoy nos quedamos sin GPU time, así que de ahora en adelante los experimentos van a ser considerablemente más lentos, tratamos con la GPU de Kaggle pero al parecer hay un error entre el entorno de kaggle y Colab que no nos permite usarlos igual, Kaggle nos dá un error en la dimensionalidad de los datos de entrada y no estamos seguros de por qué, ya que no tenemos control completo del entorno no nos queda más que usar lo que ya conocemos, el costo de tener control sobre el entorno es demasiado caro en tiempo de computación.
+
+El modelo replicado está funcionando, el modelo es tal y como se describe en el paper al menos tan fiel a la descripción dada como se puede. 
+Todavía desconocemos la distribución original de dimensiones para cada dato, lo que es bastante alarmante pero no encontramos ninguna fuente que nos confirme las dimensiones originales, simplemente las omitieron haciendo muy difici la repicación de experimento, tal vez si supieramos un poco más de audio antes habríamos previsto algo como esto pero bueno, esto al menos da bastante aprendizaje, por la misma razón no podemos saber que metodos utilizaron para modelar las salidas de datos o función de error.
+
+A partir de lo que sabemos, podemos alcanzar 30%-40% de accuracy lo que no es mucho si lo comparamos con el paper original, pensamos que esto no se debe a la arquitectura del modelo pues ya vimos que algo funciona, pero hay un claro overfitting al realizar 700 epocas, casi desde la epoca 100 se empieza a llegar a una convergencia en el 100% de correctitud, 700 son demasiadas epocas, pero es la catidad de epocas descritas en el paper, la unica forma es que tuvieran muchos más datos de entrenamiento pero RAVDESS no es más grande ni se describe que hayan realizado algun procedimiento de data augmentation sobre RAVDESS, por eso pensamos que el Data Augmentation realizado sobre EMO-DB podría haber sido utilizado tambien en RAVDESS, pero ya vimos los resultados de eso.
+
+
+### Resultados:
+
+
+### Nota: 
+
 
