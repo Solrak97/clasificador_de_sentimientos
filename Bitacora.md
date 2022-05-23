@@ -92,6 +92,18 @@ Las predicciones son como del 20% en promedio, es terrible pero creo que se pued
 <br>
 <br>
 
+## Data augmentation (speed)
+### Daniel Ramírez Umaña - 5/19/2022
+Leyendo el paper noté que habíamos pasado por alto que para el segundo modelo se realizaron modificaciones en el dataset de entrenamoento, acelerando el audio a 1.23%, reducuiendo su velocidad 0.81%, además de manteniendo la velocidad normal, además de a todas estas instancias del audio tener una versión sin ruido y una versión a la que se le agregó un 25% de ruido.
+
+Se trbajó en recorrer el código con los archivos de audio para que cada entrada tuviera una versión en velocidad 1.23% y 0.81%.
+
+### Resultados
+Se triplicó el dataset de entrenamiento.
+
+---
+<br>
+<br>
 ## Reconstrucción del modelo utilizando Pytorch en lugar de Keras
 ### Luis Carlos Quesada, Mario Viquez, Daniel Ramirez - 5/19/2022
 Ya despues de dormir hice algunas consultas y pareciera que podría ser la función de error, se me recomienda usar una biblioteca a la que esté más familiarizada y a la que se le pueda dar un contról más fino como PyTorch, podría sentarme a hacer un thinkering al error de la red anterior pero el coste de tiempo sería significativamente alto, por lo que mejor voy a crear la red nuevamente usando un modelo de torch, ya que la artquitetura está definida no debería tomar más de una hora.
@@ -122,6 +134,34 @@ Ya quiero terminar la replicación, cada vez que veo el experimento original del
 
 ### Resultados:
 Descubrimos que si se usan caracteristicas espectrales del sonido, una tecnica de data augmentation que haga cambios sobre el sonido puede no ser la mejor idea, tal vez si esto se aplica unicamente a los datos de training y no a los de testing, pero de todas formas hay que considerar si la diferencia de los datos es lo suficientemente significativa.
+
+### Nota: 
+Llenen la bitacora cada vez que hacen algo para que no se repita lo de hoy.
+
+---
+<br>
+<br>
+
+## Data augmentation
+### Isaac Herrera y Daniel Ramírez Umaña - 5/21/2022
+Investigando se logró implementar ruido a los audios, justo como en el segundo modelo. Aún no se aumenta el dataset ya que solo debe aplicarse al 25% de cada audio.
+
+### Resultados:
+
+
+### Nota: 
+Llenen la bitacora cada vez que hacen algo para que no se repita lo de hoy.
+
+---
+<br>
+<br>
+
+## Data augmentation
+### Isaac Herrera y Daniel Ramírez Umaña - 5/22/2022
+Se implementó que el ruido solo se aplique al 25% de cada audio, y ahora sí se incrementó el dataset.
+
+### Resultados:
+
 
 ### Nota: 
 Llenen la bitacora cada vez que hacen algo para que no se repita lo de hoy.
