@@ -141,8 +141,8 @@ A partir de lo que sabemos, podemos alcanzar 30%-40% de accuracy lo que no es mu
 
 
 ### Resultados:
+<div align="center"><img style="background: white;" src="Imgs\training_orignal.png"></div>
+Los resultados siempre se quedan cerca del 40%, no parece que se le pueda sacar más a estos datos, no puedo asegurarlo pero he visto que hy algunos experiimentos donde han usado unicamente el MFCC con una SVM y obtienen mejores resultados, por lo que esto es medio shady.
 
-
-### Nota: 
 
 
