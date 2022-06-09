@@ -13,6 +13,7 @@
 * [Busqueda de los datos de entrada al modelo propuesto](#busqueda-de-los-datos-de-entrada-al-modelo-propuesto)
 * [Pruebas del modelo base](#pruebas-del-modelo-base)
 * [Reconstrucción del modelo utilizando Pytorch en lugar de Keras](#reconstrucción-del-modelo-utilizando-pytorch-en-lugar-de-keras)
+* [Data augmentation (speed)](#data-augmentation-(speed))
 * [Data augmentation](#data-augmentation)
 * [Pruebas con el modelo replicado](#pruebas-con-el-modelo-replicado)
 
@@ -142,7 +143,7 @@ Llenen la bitacora cada vez que hacen algo para que no se repita lo de hoy.
 <br>
 <br>
 
-## Data augmentation
+## Data augmentation II
 ### Isaac Herrera y Daniel Ramírez Umaña - 5/21/2022
 Investigando se logró implementar ruido a los audios, justo como en el segundo modelo. Aún no se aumenta el dataset ya que solo debe aplicarse al 25% de cada audio.
 
@@ -185,4 +186,16 @@ A partir de lo que sabemos, podemos alcanzar 30%-40% de accuracy lo que no es mu
 Los resultados siempre se quedan cerca del 40%, no parece que se le pueda sacar más a estos datos, no puedo asegurarlo pero he visto que hy algunos experiimentos donde han usado unicamente el MFCC con una SVM y obtienen mejores resultados, por lo que esto es medio shady.
 
 
+---
+<br>
+<br>
+
+## Sentan-I
+### Luis Carlos Quesada - 5/9/2022
+Ya que pasaron cosas graciosas con los modelos originales de Dias y no tenemos contacto, debemos realizar cambios para redirigir la investigación de una replicación a la creación de un modelo.
+Curiosamente esto resulta más interesante y se siente menor presión a lograr una replicación exacta al modelo base propuesto por Dias.
+El modelo base no deja de ser interesante claro, por lo que planeo trabajar sobre este, modificarlo de forma que creo podría producir resultados interesantes.
+
+### Resultados:
+Creación de la arquitectura Sentan-I, esta arquitectura aún no pasa por las pruebas metricas para ser evaluada pero al menos "funciona", será un buen base line para empezar a obtener resultados.
 
