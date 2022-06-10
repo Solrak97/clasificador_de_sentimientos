@@ -7,14 +7,14 @@ class Dias_Model(Module):
         
         # Capa 1
         self.conv1 = Conv1d(in_channels=1, out_channels=256, kernel_size=5, stride=1)
-        self.batchnorm1 = BatchNorm1d(num_features = 7)
+        self.batchnorm1 = BatchNorm1d(num_features = 256)
         self.relu1 = ReLU()
     
         # Capa 2
         self.conv2 = Conv1d(in_channels=256, out_channels=128, kernel_size=5, stride=1)
         self.relu2 = ReLU()
         self.droput1 = Dropout(p = 0.1)
-        self.batchnorm2 = BatchNorm1d(num_features=42)
+        self.batchnorm2 = BatchNorm1d(num_features=128)
     
         # Maxpool
         self.maxpool = MaxPool1d(kernel_size=8)
@@ -27,7 +27,7 @@ class Dias_Model(Module):
         self.intermeida_relu2 = ReLU()
     
         self.intermedia_conv3 = Conv1d(in_channels=128, out_channels=128, kernel_size=5, stride=1)
-        self.intermedia_batchnorm = BatchNorm1d(num_features=7)
+        self.intermedia_batchnorm = BatchNorm1d(num_features=128)
         self.intermeida_relu3 = ReLU()
         self.intermedia_dropout = Dropout(p=0.2)
     
@@ -36,9 +36,9 @@ class Dias_Model(Module):
         self.final_dropout = Dropout(p=0.2)
 
         # Clasificador
-        self.final_clasificador = Linear(in_features = 7, out_features=8)
+        self.final_clasificador = Linear(in_features = 5, out_features=8)
         self.final_batchnorm = BatchNorm1d(num_features=8)
-        self.final_softmax = Softmax()
+        self.final_softmax = Softmax(dim=-1)
     
         
         

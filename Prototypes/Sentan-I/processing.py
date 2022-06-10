@@ -1,4 +1,4 @@
-from torch import tensor
+import torch
 import numpy as np
 import pandas as pd
 
@@ -16,6 +16,10 @@ def x_flat(x):
             base = np.concatenate((base, row), axis=None)
         new_x.append(base)
     return np.array(new_x)
+
+
+def x_to_tensor(x):
+    return torch.unsqueeze(torch.tensor(x), dim=1).type(torch.float32)
 
 
 def encode(y):
