@@ -27,3 +27,5 @@ LOSS_FN = nn.CrossEntropyLoss()
 VERBOSE = True
 
 train(MODEL, EPOCHS, TRAIN, TEST, OPTIMIZER, LOSS_FN, VERBOSE)
+
+torch.save(MODEL.state_dict(), 'Prototypes/Sentan-I/base_model.pt')
