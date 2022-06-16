@@ -17,10 +17,10 @@ def load_data(path):
 
 
 def split_and_tensor(x, y, t_size=0.2):
-    x = torch.from_numpy(x)
+    x = torch.unsqueeze(torch.tensor(x), dim=1).type(torch.float32)
     y = torch.from_numpy(y)
 
-    y = F.one_hot(y, 8)
+    y = F.one_hot(y, 8).type(torch.float32)
 
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=t_size)
 

@@ -11,14 +11,11 @@ data_path = 'data.pkl'
 features, labels, classes = load_data(data_path)
 x_train, x_val, y_train, y_val = split_and_tensor(features, labels)
 
-print(classes)
-
-
 
 EPOCHS = 700
 INIT_LR = 1e-3
 TRAIN = (x_train, y_train)
-TEST = (x_test, y_test)
+TEST = (x_val, y_val)
 MODEL = Dias_Model()
 OPTIMIZER = Adam(MODEL.parameters(), lr=INIT_LR)
 LOSS_FN = nn.CrossEntropyLoss()
