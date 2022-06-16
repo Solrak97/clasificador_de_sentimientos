@@ -7,14 +7,12 @@ from Dias_Model import Dias_Model
 from model_training import train
 #from Sentan_Model import Sentan_Model
 
-data = pd.read_pickle('data.pkl')
-data = data.drop(['File name', 'Duration'], axis=1)
+data_path = 'data.pkl'
+features, labels, classes = load_data(data_path)
+x_train, x_val, y_train, y_val = split_and_tensor(features, labels)
 
-raw_y = data['Emotion']
-raw_x = data.drop(['Emotion'], axis=1)
+print(classes)
 
-
-x_train, x_test, y_train, y_test = split_and_transform(raw_x, raw_y)
 
 
 EPOCHS = 700
