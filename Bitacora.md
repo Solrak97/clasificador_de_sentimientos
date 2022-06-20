@@ -199,3 +199,18 @@ El modelo base no deja de ser interesante claro, por lo que planeo trabajar sobr
 ### Resultados:
 Creación de la arquitectura Sentan-I, esta arquitectura aún no pasa por las pruebas metricas para ser evaluada pero al menos "funciona", será un buen base line para empezar a obtener resultados.
 
+
+---
+<br>
+<br>
+
+## Sentan-I Avance
+### Luis Carlos Quesada - 5/17/2022
+Durante el desarrollo del modelo base, al realizar un entrenamiento y graficarlo se nota un comportamiento interesante.
+<div align="center"><img style="background: white;" src="Imgs/Accuracy_700epochs_basemodel.png"></div>
+
+De forma similar al entrenamiento anterior, podemos ver que aproximadamente por la epoca 100 ~ 200 se alcanza una "Perfección" en la clasificación de los datos de entrenamiento, además de esto se nota una convergencia para los valores de validación.
+
+Hay una posibilidad de reducir la cantidad de epocas y no afectar demasiado el rendimiento, utilizando nuevamente K-folding y una reducción de epocas podremos ver que pasa.
+
+### Resultados:
