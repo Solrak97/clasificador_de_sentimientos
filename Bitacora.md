@@ -214,3 +214,28 @@ De forma similar al entrenamiento anterior, podemos ver que aproximadamente por 
 Hay una posibilidad de reducir la cantidad de epocas y no afectar demasiado el rendimiento, utilizando nuevamente K-folding y una reducción de epocas podremos ver que pasa.
 
 ### Resultados:
+Como podemos ver en la siguiente imagen, al reducir las epocas a unicamente 200 se alcanza nuevamente la convergencia de entrenamiento y la validación nuevamente se acerca a 0.6, por lo que reducir la cantidad de epocas durante el entrenamiento podría ser en realidad una forma bastante practica de reducir el tiempo de entrenamiento necesario.
+<div align="center"><img style="background: white;" src="Imgs/Accuracy_200epochs_basemodel.png"></div>
+
+
+---
+<br>
+<br>
+
+
+## Sentan-I Avance II
+### Luis Carlos Quesada - 5/18/2022
+Tomando algunas ideas de conocimiento previo como base, tenemos la idea de que el modelo base de Dias presenta un pequeño problema en la ubicación de las capas de dropout, usualmente estas capas no se encuentran en la sección convolucional si no en la sección de clasificación, pero en la arquitectura de Dias se colocan desde las capas convolucionales, por lo que se plantea eliminar estas capas de donde se encuentran, realizar una medición de accuracy y luego colocarlas en las capas de clasificación y nuevamente realizar mediciones.
+
+### Resultados:
+En la medición inicial que se realizó luego de eliminar las capas de dropout podemos notar que no hay un aumento significativo de accuracy, más bien al contrario se reduce el accuracy del modelo y además presenta un efecto etra interesante, podemos ver como el modelo comienza a converger al 100% en el entrenamiento mucho antes, es decir, las capaas ayudan a prevenir el overfitting a pesar de no estar colocadas en donde uno pensaría que serían más efectivas.
+<div align="center"><img style="background: white;" src="Imgs/Accuracy_200epoch_no_dropout.png"></div>
+
+
+Realiando pruebas con distintas configuraciónes para las capas de salida pareciera que sería posible añadir algunas capas de dropout si la clasificación no se deja en una unica capa, al dividir la clasificación en 2 capas se logró obtener la misma puntuación en accuracy que el modelo original, pero con 2 capas menos de dropout, actualmente el accuracy se encuentra aproximadamente en un 70%, siin embargo sigue existiendo el problema de convergencia en training muy rapida.
+
+
+<div align="center"><img style="background: white;" src="Imgs/Accuracy_200epoch_class_dropout.png"></div>
+---
+<br>
+<br>

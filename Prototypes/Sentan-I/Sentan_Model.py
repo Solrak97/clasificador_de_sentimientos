@@ -43,7 +43,7 @@ class Sentan_Model(Module):
         self.final_dropout = Dropout(p=0.2)
 
         # Clasificador
-        self.final_clasificador = Linear(in_features=5, out_features=8)
+        self.final_clasificador = Linear(in_features=896, out_features=8)
         self.final_batchnorm = BatchNorm1d(num_features=8)
         self.final_softmax = Softmax(dim=-1)
 
@@ -52,7 +52,7 @@ class Sentan_Model(Module):
         x = self.relu1(self.batchnorm1(self.conv1(x)))
 
         # Capa 2
-        x = self.batchnorm2(self.droput1(self.relu2(self.conv2(x))))
+        x = self.batchnorm2(self.relu2(self.conv2(x)))
 
         # Maxpool
         x = self.maxpool(x)
@@ -64,11 +64,12 @@ class Sentan_Model(Module):
         x = self.intermeida_relu2(self.intermedia_conv2(x))
 
         # Intermedias 3
-        x = self.intermedia_dropout(self.intermeida_relu3(
-            self.intermedia_batchnorm(self.intermedia_conv3(x))))
-
+        x = self.intermeida_relu3(
+            self.intermedia_batchnorm(self.intermedia_conv3(x)))
         # Final
-        x = self.final_dropout(self.final_conv(x).view(-1, 5))
+
+        x = self.final_conv(x)
+        x = x.view(-1, 128*7)
 
         # Clasificador
         x = self.final_batchnorm(self.final_clasificador(x))
