@@ -3,6 +3,14 @@ import torch
 import matplotlib.pyplot as plt
 
 
+def train_sentan():
+    pass
+
+def train_dias():
+    pass
+
+
+
 def train(model, epochs, train, test, optimizer, lossFn, verbose):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

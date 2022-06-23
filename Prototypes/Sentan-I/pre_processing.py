@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 
 
+# Carga los datos en formato Numpy
 def load_data(path):
     data = pd.read_pickle(path)
     features = to_numpy(data['Composite_Vector'])
