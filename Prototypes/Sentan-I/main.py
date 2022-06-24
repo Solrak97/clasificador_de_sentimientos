@@ -5,7 +5,7 @@ import pandas as pd
 
 from pre_processing import to_tensor, to_labels, load_data, split
 from model_training import train
-from model_evaluation import confussion_matrix
+from model_evaluation import confussion_matrix, summary
 
 
 from Dias_Model import Dias_Model
@@ -19,6 +19,8 @@ features, labels, classes = load_data(data_path)
 #k_folds = split(features, labels)
 
 lbls = to_labels(labels, classes)
+
+summary(lbls, lbls)
 confussion_matrix(lbls, lbls, classes)
 
 
