@@ -16,3 +16,25 @@ def confussion_matrix(y_true, y_pred, classes):
     sns.heatmap(df_cm, annot=True)
 
     plt.show()
+
+
+
+def precission():
+    pass
+
+
+def recall():
+    pass
+
+
+def F1_score():
+    pass
+
+
+def accuracy():
+    pass
+
+
+
+
+
