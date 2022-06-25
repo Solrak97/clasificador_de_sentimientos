@@ -12,7 +12,7 @@ from Dias_Model import Dias_Model
 from Sentan_Model import Sentan_Model
 
 
-
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 data_path = 'data.pkl'
 
 features, labels, classes = load_data(data_path)
@@ -21,5 +21,5 @@ model = Sentan_Model
 optimizer = Adam
 lossFn = nn.CrossEntropyLoss()
 
-train_kfold(model, features, labels,  optimizer, lossFn, device='cuda', epochs=100)
+train_kfold(model, features, labels,  optimizer, lossFn, device, epochs=100)
 

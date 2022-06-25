@@ -15,7 +15,7 @@ def to_numpy(x):
     return data
 
 
-# Carga los datos en formato Numpy
+# Carga los datos en formato Numpy como X, y, tags
 def load_data(path):
     data = pd.read_pickle(path)
     features = to_numpy(data['Composite_Vector'])
@@ -42,4 +42,4 @@ def to_tensor(x, y):
 
 
 def to_labels(preds, labels):
-    return [labels[i][0] for i in preds]
+    return [labels[i.item()][0] for i in preds]
