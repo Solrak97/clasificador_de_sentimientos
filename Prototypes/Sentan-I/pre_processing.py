@@ -29,7 +29,7 @@ def load_data(path):
 # El formato es una lista de listas
 # Se puede ver como [[Train], [Test]]
 def split(x, y, splits = 5, random_state = 0):
-    skf = StratifiedKFold(n_splits=splits, random_state = random_state)
+    skf = StratifiedKFold(n_splits=splits, random_state = random_state, shuffle=True)
     return skf.split(x, y)
 
 

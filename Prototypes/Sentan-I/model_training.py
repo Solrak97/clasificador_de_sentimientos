@@ -1,85 +1,102 @@
-import torch
-
 import matplotlib.pyplot as plt
+import torch
+import numpy as np
+
+from pre_processing import split, to_tensor
 
 
-def train_sentan():
-    pass
+def train_kfold(model_builder, X, y,  optimizer_builder, lossFn, device='cpu', epochs=100):
+    folds = 1
 
-def train_dias():
-    pass
+    # Kfold Historial
+    total_loss_hist = []
+    total_train_acc_hist = []
+    total_val_acc_hist = []
 
+    # K-folds
+    for train_idx, test_idx in split(X, y):
 
+        model = model_builder().to(device)
+        optimizer = optimizer_builder(model.parameters(), lr=1e-3)
 
-def train(model, epochs, train, test, optimizer, lossFn, verbose):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        # Fold Data
+        x_train = X[train_idx]
+        y_train = y[train_idx]
 
-    x_train, y_train = train
-    x_test, y_test = test
+        x_test = X[test_idx]
+        y_test = y[test_idx]
 
-    VAL_SIZE = len(x_test)
-    TRAIN_SIZE = len(x_train)
+        x_train, y_train = to_tensor(x_train, y_train)
+        x_test, y_test = to_tensor(x_test, y_test)
 
-    # Historial de entrenamiento
-    loss_hist = []
-    train_acc_hist = []
-    val_acc_hist = []
-    loss = 0
+        # Historial de entrenamiento
+        loss_hist = []
+        train_acc_hist = []
+        val_acc_hist = []
+        loss = 0
 
-    # Entrenamiento del modelo
-    model.train()
-    for epoch in range(0, epochs):
+        # Train loop
+        model.train()
+        for epoch in range(0, epochs):
 
-        # Training
-        x_train.to(device)
-        y_train.to(device)
+            # Training
+            x_train = x_train.to(device)
+            y_train = y_train.to(device)
 
-        optimizer.zero_grad()
+            optimizer.zero_grad()
 
-        pred = model(x_train)
+            pred = model(x_train)
 
-        _loss = lossFn(pred, y_train)
-        _loss.backward()
-        optimizer.step()
+            _loss = lossFn(pred, y_train)
+            _loss.backward()
+            optimizer.step()
 
-        loss_dif = loss - _loss
-        loss = _loss
-        loss_hist.append(loss)
+            loss = _loss
+            loss_hist.append(loss)
 
-        train_correct = (torch.argmax(pred, dim=1) == torch.argmax(
-            y_train, 1)).type(torch.float).sum().item()
+            train_correct = (torch.argmax(pred, dim=1) ==
+                             y_train).type(torch.float).sum().item()
 
         # Validation
-        with torch.no_grad():
+            with torch.no_grad():
 
-            x_test.to(device)
-            y_test.to(device)
-            pred = model(x_test)
+                x_test = x_test.to(device)
+                y_test = y_test.to(device)
+                pred = model(x_test)
 
-            val_correct = (torch.argmax(pred, dim=1) == torch.argmax(
-                y_test, 1)).type(torch.float).sum().item()
+                val_correct = (torch.argmax(pred, dim=1) ==
+                               y_test).type(torch.float).sum().item()
 
-            train_acc_hist.append(train_correct / TRAIN_SIZE)
-            val_acc_hist.append(val_correct / VAL_SIZE)
+                train_acc_hist.append(train_correct / len(x_train))
+                val_acc_hist.append(val_correct / len(x_test))
 
-        # Report
+        # Reporte
+        total_loss_hist.append(loss_hist)
+        total_train_acc_hist.append(train_acc_hist)
+        total_val_acc_hist.append(val_acc_hist)
 
-        if verbose:
-            print(f'''
+        print(f'''
+        Fold: {folds}
+        Training Accuracy:       {train_acc_hist[-1]}
+        Validation Accuracy:     {val_acc_hist[-1]}
+        ''')
 
-            Epoch #{epoch}
-            Loss                {loss}
-            Loss Dif:           {loss_dif}
-            Train Correct:      {train_correct}
-            Train Acc:          {train_acc_hist[-1]}
-            Val Correct         {val_correct}
-            Val Acc:            {val_acc_hist[-1]}
+        folds += 1
 
-            ''')
+    #   kfold means
+    #mean_loss = np.array(total_loss_hist)
+    mean_train_accuracy = np.array(total_train_acc_hist)
+    mean_val_accuracy = np.array(total_val_acc_hist)
 
-    torch.save(model.state_dict(), f'Model_final.pt')
-    plt.plot(range(epochs), val_acc_hist, label="Validation")
-    plt.plot(range(epochs), train_acc_hist,  label="Training")
-    plt.title('Accuracy')
+    #mean_loss = mean_loss.mean()
+    mean_train_accuracy = np.mean(mean_train_accuracy, axis=0)
+    mean_val_accuracy = np.mean(mean_val_accuracy, axis=0)
+
+    # Training vs validaton plot
+    plt.plot(range(epochs), mean_val_accuracy,
+             label=f"Mean Validation")
+    plt.plot(range(epochs), mean_train_accuracy,
+             label=f"Mean Training")
+    plt.title('K-fold Mean Validation Vs Training')
     plt.legend()
     plt.show()
