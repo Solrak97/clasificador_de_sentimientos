@@ -2,7 +2,25 @@ import matplotlib.pyplot as plt
 import torch
 import numpy as np
 
-from pre_processing import split, to_tensor
+from .pre_processing import split, to_tensor
+
+
+def train(model, X, y, device, optimizer, lossFn, epochs):
+    X, y = to_tensor(X, y)
+    X.to(device)
+    y.to(device)
+    
+    # Entrenamiento del modelo
+    model.train()
+    for epoch in range(0, epochs):
+
+        optimizer.zero_grad()
+
+        pred = model(X)
+
+        loss = lossFn(pred, y)
+        loss.backward()
+        optimizer.step()        
 
 
 def train_kfold(model_builder, X, y,  optimizer_builder, lossFn, device='cpu', epochs=100):
