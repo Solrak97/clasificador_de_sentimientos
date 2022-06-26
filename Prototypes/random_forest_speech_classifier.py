@@ -56,14 +56,14 @@ from sklearn.model_selection import train_test_split
 data = pd.read_pickle('data.pkl')
 data.head(3)
 
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
+#from sklearn.preprocessing import StandardScaler, OneHotEncoder
 
 # Building X
 X = np.array([np.hstack([data['Duration'][i], data['MFCC'][i], data['Chroma'][i], data['Mel'][i], 
                          data['Contrast'][i], data['Tonnetz'][i]]) for i in range(len(data.index))])
-scaler = StandardScaler()
-scaler.fit(X)
-X = scaler.transform(X)
+#scaler = StandardScaler()
+#scaler.fit(X)
+#X = scaler.transform(X)
 
 # Building X
 Y = np.array(data['Ordinal_Emotion'])
@@ -72,105 +72,26 @@ Y = np.array(data['Ordinal_Emotion'])
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2)
 
 # Applying One-Hot-Encoder to test sets
-encoder = OneHotEncoder()
-y_train_1HE = encoder.fit_transform(np.array(y_train).reshape(-1,1)).toarray()
-y_test_1HE = encoder.fit_transform(np.array(y_test).reshape(-1,1)).toarray()
+#encoder = OneHotEncoder()
+#y_train_1HE = encoder.fit_transform(np.array(y_train).reshape(-1,1)).toarray()
+#y_test_1HE = encoder.fit_transform(np.array(y_test).reshape(-1,1)).toarray()
 
 print(f'''
   X_train: {X_train.shape}
   X_test: {X_test.shape}
   y_train: {y_train.shape}
   y_test: {y_test.shape}
-  y_train_1HE: {y_train_1HE.shape}
-  y_test_1HE: {y_test_1HE.shape}
 ''')
 
-'''...............................................
-print(y_train_1HE)
-my_shape = y_train_1HE.shape
-per_class = [0,0,0,0,0,0,0,0,0]
-for row in range(my_shape[0]):
-  new_row = []
-  for col in  range(my_shape[1]):
-    new_row.append(y_test_1HE[row][col])
-    
-    if y_test_1HE[row][col] == 1.:
-      per_class[col] +=1
-    
-  print(f'ROW {row}:   {new_row}')
-print(f'\nPER CLASS: {per_class}')
 '''
-#c = 0
 for row in y_test_1HE:
   print(f'.......... {row} .........')
-#  c=+1
-#print(c)
-    
-
-"""### Algoritmo de extracción de datos
-
-RANDOM FOREST
-"""
-
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import classification_report
-from sklearn.metrics import confusion_matrix
-
-print(y_train_1HE.shape)
-classifier = RandomForestClassifier(n_estimators = 100, random_state = 0)
-classifier.fit(X_train, y_train_1HE)
-predicted = classifier.predict(X_test)
-
-
-'''............................................
-
-'''
-c = 0
-for row in predicted:
-  print(row)
-  c=+1
-print(c)
-
-print(accuracy_score(y_true=y_test_1HE, y_pred=predicted))
-print(classification_report(y_test_1HE, predicted))
-print(confusion_matrix(y_test, predicted))
-
-'''............................................
-c_p_shape = predicted.shape
-print(c_p_shape)
-class_pred = []
-for row in range(c_p_shape[0]):
-  act_row = []
-  for col in range(c_p_shape[1]):
-    act_row.append(predicted[row][col])
-  c_predicted = np.argmax(act_row)
-  class_pred.append(c_predicted)
-  print(act_row)
-print(f'\nClases predichas\n{class_pred}')
 '''
 
 
-print('\n\n\n..............................\nY_train\n\n\n')
-
-y_train_shape = y_train_1HE.shape
-print(y_train_shape)
-to_pred = []
-for row in range(y_train_shape[0]):
-  act_row = []
-  for col in range(y_train_shape[1]):
-    act_row.append(y_train_1HE[row][col])
-  y_to_predict = np.argmax(act_row)
-  to_pred.append(y_to_predict)
-  print(act_row)
-print(f'\nClases predichas\n{to_pred}')
-
-#print(c_p_shape)
-
-c_pred = np.argmax(predicted)
-
-print(c_pred)
-
+'''
+Model: Random Forest
+'''
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
@@ -178,10 +99,20 @@ from sklearn.metrics import confusion_matrix
 
 classifier = RandomForestClassifier(n_estimators = 20, random_state = 0)
 classifier.fit(X_train, y_train)
+print(f':(:(:(:( {X_test.shape}')
 c_p = classifier.predict(X_test)
-print(accuracy_score(y_true=y_test, y_pred=c_p))
-print(classification_report(y_test, c_p))
-print(confusion_matrix(y_test, class_pred))
+
+print(f'target:   {y_test}')
+print(f'obtained: {c_p}')
+
+accuracy = accuracy_score(y_true=y_test, y_pred=c_p)
+print(f'\nMy accuracy: {accuracy}')
+report = classification_report(y_test, c_p)
+print(f'\n{report}')
+c_matrix = confusion_matrix(y_test, c_p)
+print(f'\n{c_matrix}')
+
+
 
 """Precision 0.7 (100 estimators) y 0.647 (20 estimators)
 
