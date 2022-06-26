@@ -53,64 +53,44 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 
-data = pd.read_pickle('data.pkl')
-data.head(3)
-
-#from sklearn.preprocessing import StandardScaler, OneHotEncoder
-
-# Building X
-X = np.array([np.hstack([data['Duration'][i], data['MFCC'][i], data['Chroma'][i], data['Mel'][i], 
-                         data['Contrast'][i], data['Tonnetz'][i]]) for i in range(len(data.index))])
-#scaler = StandardScaler()
-#scaler.fit(X)
-#X = scaler.transform(X)
-
-# Building X
-Y = np.array(data['Ordinal_Emotion'])
-
-# Building the Training and Test sets
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2)
-
-# Applying One-Hot-Encoder to test sets
-#encoder = OneHotEncoder()
-#y_train_1HE = encoder.fit_transform(np.array(y_train).reshape(-1,1)).toarray()
-#y_test_1HE = encoder.fit_transform(np.array(y_test).reshape(-1,1)).toarray()
-
-print(f'''
-  X_train: {X_train.shape}
-  X_test: {X_test.shape}
-  y_train: {y_train.shape}
-  y_test: {y_test.shape}
-''')
-
-'''
-for row in y_test_1HE:
-  print(f'.......... {row} .........')
-'''
-
-
-'''
-Model: Random Forest
-'''
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 
-classifier = RandomForestClassifier(n_estimators = 20, random_state = 0)
-classifier.fit(X_train, y_train)
-print(f':(:(:(:( {X_test.shape}')
-c_p = classifier.predict(X_test)
+data = pd.read_pickle('data.pkl')
 
-print(f'target:   {y_test}')
-print(f'obtained: {c_p}')
 
-accuracy = accuracy_score(y_true=y_test, y_pred=c_p)
-print(f'\nMy accuracy: {accuracy}')
-report = classification_report(y_test, c_p)
-print(f'\n{report}')
-c_matrix = confusion_matrix(y_test, c_p)
-print(f'\n{c_matrix}')
+epochs = 10
+for ep in range(epochs):
+
+  # Building X
+  X = np.array([np.hstack([data['Duration'][i], data['MFCC'][i], data['Chroma'][i], data['Mel'][i], 
+                          data['Contrast'][i], data['Tonnetz'][i]]) for i in range(len(data.index))])
+
+  # Building Y
+  Y = np.array(data['Ordinal_Emotion'])
+
+  # Building the Training and Test sets
+  X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2)
+
+
+  '''
+  Model: Random Forest
+  '''
+  classifier = RandomForestClassifier(n_estimators = 800, random_state = 0)
+  classifier.fit(X_train, y_train)
+  c_p = classifier.predict(X_test)
+
+  #print(f'target:   {y_test}')
+  #print(f'obtained: {c_p}')
+  print(f'\n\n\n...epoch {ep+1}')
+  accuracy = accuracy_score(y_true=y_test, y_pred=c_p)
+  print(f'\nMy accuracy: {accuracy}')
+  report = classification_report(y_test, c_p)
+  print(f'\n{report}')
+  c_matrix = confusion_matrix(y_test, c_p)
+  print(f'\n{c_matrix}')
 
 
 
