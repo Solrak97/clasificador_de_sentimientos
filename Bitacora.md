@@ -204,7 +204,7 @@ Creación de la arquitectura Sentan-I, esta arquitectura aún no pasa por las pr
 <br>
 <br>
 
-## Sentan-I Avance
+## Sentan - Cantidad de epocas
 ### Luis Carlos Quesada - 5/17/2022
 Durante el desarrollo del modelo base, al realizar un entrenamiento y graficarlo se nota un comportamiento interesante.
 <div align="center"><img style="background: white;" src="Imgs/Accuracy_700epochs_basemodel.png"></div>
@@ -223,7 +223,7 @@ Como podemos ver en la siguiente imagen, al reducir las epocas a unicamente 200 
 <br>
 
 
-## Sentan-I Avance II
+## Sentan Avance - Dropout
 ### Luis Carlos Quesada - 5/18/2022
 Tomando algunas ideas de conocimiento previo como base, tenemos la idea de que el modelo base de Dias presenta un pequeño problema en la ubicación de las capas de dropout, usualmente estas capas no se encuentran en la sección convolucional si no en la sección de clasificación, pero en la arquitectura de Dias se colocan desde las capas convolucionales, por lo que se plantea eliminar estas capas de donde se encuentran, realizar una medición de accuracy y luego colocarlas en las capas de clasificación y nuevamente realizar mediciones.
 
@@ -236,6 +236,46 @@ Realiando pruebas con distintas configuraciónes para las capas de salida pareci
 
 
 <div align="center"><img style="background: white;" src="Imgs/Accuracy_200epoch_class_dropout.png"></div>
+
+
 ---
 <br>
 <br>
+
+
+## Sentan Avance Regularizador 
+### Luis Carlos Quesada - 5/20/2022:
+
+Para combatir el problema de overfitting, ya que es el problema más significativo que presenta el modelo, se decide optar por la introducción de un regularizador.
+Para el modelo se utiliza un optimizador Adam y a este se le añade un regularizador L2 que debería ayudar a combatir el overitting
+
+### Resultados:
+
+Los resultados de aplicar una regularización no parecen mejorar las metricas del modelo, luego de probar diferentes combinaciones de hiperparametros se tiene la idea de que el modelo base es simplemente demasiado complejo para realizar predicciones, es posible que modificando la arquitectura a una forma más sencilla pueda reducir el overfitting de manera significativa.
+
+<div align="center"><img style="background: white;" src="Prototypes/Sentan-I/Plots/Acc_700_sentan_regular.png"></div>
+
+
+---
+
+## Sentan Avance Simplificación de la arquitectura
+### Luis Carlos Quesada - 5/22/2022:
+
+Debido a que los anteriores intentos por obtener mejores resultados no parecen llegar a nada se opta por simplificar la arquitectura del modelo base completamente, se mantendrá la estructura de los datos por lo que solo será necesario modificar el modelo.
+
+Considerando que ya se tiene experiencia con datos más complejos trabajados sobre redes más simples, se piensa utilizar un acercaiento a la reducción de la dimensionalidad de los datos de una manera mas sencilla reduciendo la cantidad de capas convolucionales necesarias.
+
+
+### Resultados:
+
+Inicialmente se creó un modelo pequeño, aunque no muy efectivo de una unica capa convolucional y una capa de clasificación
+<div align="center"><img style="background: white;" src="Prototypes/Sentan-I/Plots/Minimizacion_1_layer.png"></div>
+
+
+Al añadir una capa extra se obtuvieron mejores resultados llegando a casi un 70% de accuracy en promedio.
+<div align="center"><img style="background: white;" src="Prototypes/Sentan-I/Plots/Minimización 2 capas.png"></div>
+
+
+Finalmente se intentó añadir capas de dropout para contrarrestar aun más al overfitting, sn embargo esto no mejoró la eficiencia del modelo
+<div align="center"><img style="background: white;" src="Prototypes/Sentan-I/Plots/Minimizacion2 + dropout 400e.png"></div>
+
