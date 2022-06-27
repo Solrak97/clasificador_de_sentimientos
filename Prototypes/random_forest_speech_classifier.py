@@ -60,8 +60,8 @@ from sklearn.metrics import confusion_matrix
 
 data = pd.read_pickle('data.pkl')
 
-
-epochs = 10
+mean_accuracy = 0
+epochs = 40
 for ep in range(epochs):
 
   # Building X
@@ -79,20 +79,21 @@ for ep in range(epochs):
   Model: Random Forest
   '''
   classifier = RandomForestClassifier(n_estimators = 800, random_state = 0)
-  classifier.fit(X_train, y_train)
-  c_p = classifier.predict(X_test)
+  c_p = classifier.fit(X_train, y_train).predict(X_test)
 
   #print(f'target:   {y_test}')
   #print(f'obtained: {c_p}')
   print(f'\n\n\n...epoch {ep+1}')
   accuracy = accuracy_score(y_true=y_test, y_pred=c_p)
   print(f'\nMy accuracy: {accuracy}')
+  mean_accuracy += accuracy
   report = classification_report(y_test, c_p)
   print(f'\n{report}')
   c_matrix = confusion_matrix(y_test, c_p)
   print(f'\n{c_matrix}')
 
-
+mean_accuracy /= epochs
+print(f'------------------------------------------------\nEl accuracy promedio fue de {mean_accuracy}\n------------------------------------------------')
 
 """Precision 0.7 (100 estimators) y 0.647 (20 estimators)
 
