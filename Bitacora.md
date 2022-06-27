@@ -232,7 +232,7 @@ En la medición inicial que se realizó luego de eliminar las capas de dropout p
 <div align="center"><img style="background: white;" src="Imgs/Accuracy_200epoch_no_dropout.png"></div>
 
 
-Realiando pruebas con distintas configuraciónes para las capas de salida pareciera que sería posible añadir algunas capas de dropout si la clasificación no se deja en una unica capa, al dividir la clasificación en 2 capas se logró obtener la misma puntuación en accuracy que el modelo original, pero con 2 capas menos de dropout, actualmente el accuracy se encuentra aproximadamente en un 70%, siin embargo sigue existiendo el problema de convergencia en training muy rapida.
+Realiando pruebas con distintas configuraciónes para las capas de salida pareciera que sería posible añadir algunas capas de dropout si la clasificación no se deja en una unica capa, al dividir la clasificación en 2 capas se logró obtener la misma puntuación en accuracy que el modelo original, pero con 2 capas menos de dropout, actualmente el accuracy se encuentra aproximadamente en un 60%, siin embargo sigue existiendo el problema de convergencia en training muy rapida.
 
 
 <div align="center"><img style="background: white;" src="Imgs/Accuracy_200epoch_class_dropout.png"></div>
