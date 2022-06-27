@@ -1,7 +1,7 @@
 from torch import nn
 from torch.optim import Adam
 import pandas as pd
-
+import torch
 
 from pre_processing import load_data
 from model_training import train_kfold
@@ -21,5 +21,5 @@ model = Sentan_Model
 optimizer = Adam
 lossFn = nn.CrossEntropyLoss()
 
-train_kfold(model, features, labels,  optimizer, lossFn, device, epochs=100)
+train_kfold(model, features, labels,  optimizer, lossFn, device, epochs=500)
 

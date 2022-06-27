@@ -2,7 +2,12 @@ import matplotlib.pyplot as plt
 import torch
 import numpy as np
 
-from .pre_processing import split, to_tensor
+# Esto cubre el notebook y correr desde el main
+try:
+    from pre_processing import split, to_tensor
+
+except:
+    from .pre_processing import split, to_tensor
 
 
 def train(model, X, y, device, optimizer, lossFn, epochs):
@@ -35,7 +40,7 @@ def train_kfold(model_builder, X, y,  optimizer_builder, lossFn, device='cpu', e
     for train_idx, test_idx in split(X, y):
 
         model = model_builder().to(device)
-        optimizer = optimizer_builder(model.parameters(), lr=1e-3)
+        optimizer = optimizer_builder(model.parameters(), lr=1e-3, weight_decay=1e-5)
 
         # Fold Data
         x_train = X[train_idx]

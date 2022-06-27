@@ -6,73 +6,34 @@ class Sentan_Model(Module):
     def __init__(self):
         super(Sentan_Model, self).__init__()
 
-        # Capa 1
-        self.conv1 = Conv1d(in_channels=1, out_channels=256,
+        self.conv1 = Conv1d(in_channels=1, out_channels=25,
                             kernel_size=5, stride=1)
-        self.batchnorm1 = BatchNorm1d(num_features=256)
-        self.relu1 = ReLU()
+        
 
-        # Capa 2
-        self.conv2 = Conv1d(in_channels=256, out_channels=128,
+        self.conv2 = Conv1d(in_channels=25, out_channels=50,
                             kernel_size=5, stride=1)
-        self.relu2 = ReLU()
-        self.droput1 = Dropout(p=0.1)
-        self.batchnorm2 = BatchNorm1d(num_features=128)
 
-        # Maxpool
-        self.maxpool = MaxPool1d(kernel_size=8)
-
-        # Intermedias
-        self.intermedia_conv1 = Conv1d(
-            in_channels=128, out_channels=128, kernel_size=5, stride=1)
-        self.intermeida_relu1 = ReLU()
-
-        self.intermedia_conv2 = Conv1d(
-            in_channels=128, out_channels=128, kernel_size=5, stride=1)
-        self.intermeida_relu2 = ReLU()
-
-        self.intermedia_conv3 = Conv1d(
-            in_channels=128, out_channels=128, kernel_size=5, stride=1)
-        self.intermedia_batchnorm = BatchNorm1d(num_features=128)
-        self.intermeida_relu3 = ReLU()
-        self.intermedia_dropout = Dropout(p=0.2)
-
-        # Final
-        self.final_conv = Conv1d(
-            in_channels=128, out_channels=128, kernel_size=5, stride=1)
-        self.final_dropout = Dropout(p=0.2)
 
         # Clasificador
-        self.final_clasificador = Linear(in_features=896, out_features=8)
-        self.final_batchnorm = BatchNorm1d(num_features=8)
-        self.final_softmax = Softmax(dim=-1)
+        self.fc1 = Linear(in_features=50*185, out_features=8)
+        
+        # Intra layer Functions
+        self.batchnorm1 = BatchNorm1d(num_features=25)
+        self.batchnorm2 = BatchNorm1d(num_features=50)
+        self.relu = ReLU()
+        self.dropout = Dropout(p=0.1)
+        self.softmax = Softmax(dim=-1)
+
 
     def forward(self, x):
         # Capa 1
-        x = self.relu1(self.batchnorm1(self.conv1(x)))
-
-        # Capa 2
-        x = self.batchnorm2(self.relu2(self.conv2(x)))
-
-        # Maxpool
-        x = self.maxpool(x)
-
-        # Intermedias 1
-        x = self.intermeida_relu1(self.intermedia_conv1(x))
-
-        # Intermedias 2
-        x = self.intermeida_relu2(self.intermedia_conv2(x))
-
-        # Intermedias 3
-        x = self.intermeida_relu3(
-            self.intermedia_batchnorm(self.intermedia_conv3(x)))
-        # Final
-
-        x = self.final_conv(x)
-        x = x.view(-1, 128*7)
+        x = self.relu(self.batchnorm1(self.conv1(x)))
+        x = self.relu(self.batchnorm2(self.conv2(x)))
+        
+        x = x.view(-1, 50*185)
 
         # Clasificador
-        x = self.final_batchnorm(self.final_clasificador(x))
-        output = self.final_softmax(x)
+        x = self.fc1(x)
+        output = self.softmax(x)
 
         return output
