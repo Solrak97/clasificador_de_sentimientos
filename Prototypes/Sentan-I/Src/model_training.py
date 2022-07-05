@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import torch
 import numpy as np
+import wandb
 
 # Esto cubre el notebook y correr desde el main
 try:
@@ -11,10 +12,18 @@ except:
 
 
 def train(model, X, y, device, optimizer, lossFn, epochs):
+    wandb.init(project="Pruebas W&B")
+
+    wandb.config = {
+        "learning_rate": 0.001,
+        "epochs": 100,
+        "batch_size": 128
+    }
+
     X, y = to_tensor(X, y)
     X.to(device)
     y.to(device)
-    
+
     # Entrenamiento del modelo
     model.train()
     for epoch in range(0, epochs):
@@ -24,8 +33,10 @@ def train(model, X, y, device, optimizer, lossFn, epochs):
         pred = model(X)
 
         loss = lossFn(pred, y)
+        wandb.log({"loss1": loss})
+        wandb.log({"loss2": loss})
         loss.backward()
-        optimizer.step()        
+        optimizer.step()
 
 
 def train_kfold(model_builder, X, y,  optimizer_builder, lossFn, device='cpu', epochs=100):
@@ -40,7 +51,8 @@ def train_kfold(model_builder, X, y,  optimizer_builder, lossFn, device='cpu', e
     for train_idx, test_idx in split(X, y):
 
         model = model_builder().to(device)
-        optimizer = optimizer_builder(model.parameters(), lr=1e-3, weight_decay=1e-5)
+        optimizer = optimizer_builder(
+            model.parameters(), lr=1e-3, weight_decay=1e-5)
 
         # Fold Data
         x_train = X[train_idx]
