@@ -279,3 +279,22 @@ Al añadir una capa extra se obtuvieron mejores resultados llegando a casi un 70
 Finalmente se intentó añadir capas de dropout para contrarrestar aun más al overfitting, sn embargo esto no mejoró la eficiencia del modelo
 <div align="center"><img style="background: white;" src="Prototypes/Sentan-I/Plots/Minimizacion2 + dropout 400e.png"></div>
 
+
+---
+## Elaboración del documento del Avance #2: 04 Julio 2022
+### Luis Carlos Quesada
+### Gianfranco Bagnarello
+### Mario Viquez
+### Isaac Herrera
+### Daniel Ramirez
+El equipo trabajó en conjunto para elaborar el documento del avance 2, se escribieron las bases y se organizó el documento. Se escribieron borradores de la mayoría de las secciones. Surgió una duda que se preparó para enviarla a los profesores (la duda es de las preguntas de investigación con respecto a la evolución del trabajo).
+
+## Elaboración del documento del Avance #2: 05 Julio 2022
+### Luis Carlos Quesada
+### Gianfranco Bagnarello
+### Mario Viquez
+### Isaac Herrera
+### Daniel Ramirez
+El equipo trabajó en conjunto para continuar con la elaboración del documento del avance #2. Se refinaron los objetivos, los antecedentes, el diseño experimental, las hipótesis, las variables dependientes e independientes. Además se envió la duda al profesor que nos respondió, por lo que aplicamos los cambios sugeridos y se actualizó la investigación. Surgió otra duda que se preparó para enviarla mañana al profesor, que es sobre el enfoque de los edificios inteligentes. Se refinó bastante el documento en tema de redacción y ortografía.
+
+
