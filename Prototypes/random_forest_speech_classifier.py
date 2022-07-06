@@ -52,38 +52,56 @@ import pickle
 import seaborn as sns
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
-
+import sklearn.metrics as metrics
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import plot_confusion_matrix
+
+
 
 data = pd.read_pickle('data.pkl')
 
+'''
+Graficación de matríz de confusión
+'''
+def confussion_matrix(y_true, y_pred, classes):
+
+    cf_matrix = metrics.confusion_matrix(y_true, y_pred)
+
+    df_cm = pd.DataFrame(cf_matrix, index=[i[0] for i in classes],
+                         columns=[i[0] for i in classes])
+
+    plt.figure(figsize=(10, 7))
+    sns.heatmap(df_cm, annot=True, fmt='g', cmap='YlOrBr')
+
+    plt.show()
+
 mean_accuracy = 0
-epochs = 40
+epochs = 15
 for ep in range(epochs):
 
   # Building X
-  X = np.array([np.hstack([data['Duration'][i], data['MFCC'][i], data['Chroma'][i], data['Mel'][i], 
-                          data['Contrast'][i], data['Tonnetz'][i]]) for i in range(len(data.index))])
+  ##############X = np.array([np.hstack([data['Duration'][i], data['MFCC'][i], data['Chroma'][i], data['Mel'][i], 
+                          ############data['Contrast'][i], data['Tonnetz'][i]]) for i in range(len(data.index))])
+  X = np.array([np.hstack([data['Duration'][i], data['MFCC'][i], data['Chroma'][i], data['Mel'][i]]) for i in range(len(data.index))])
 
   # Building Y
   Y = np.array(data['Ordinal_Emotion'])
+  classes = np.array(data['Emotion'])
+  classes = pd.DataFrame(data=classes)
 
   # Building the Training and Test sets
   X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2)
-
 
   '''
   Model: Random Forest
   '''
   classifier = RandomForestClassifier(n_estimators = 800, random_state = 0)
   c_p = classifier.fit(X_train, y_train).predict(X_test)
-
-  #print(f'target:   {y_test}')
-  #print(f'obtained: {c_p}')
   print(f'\n\n\n...epoch {ep+1}')
+
   accuracy = accuracy_score(y_true=y_test, y_pred=c_p)
   print(f'\nMy accuracy: {accuracy}')
   mean_accuracy += accuracy
@@ -91,7 +109,14 @@ for ep in range(epochs):
   print(f'\n{report}')
   c_matrix = confusion_matrix(y_test, c_p)
   print(f'\n{c_matrix}')
+  print(classes)
 
+  df_cm = pd.DataFrame(c_matrix, index = [i for i in "ABCDEFGH"],
+                    columns = [i for i in "ABCDEFGH"])
+  plt.figure(figsize = (10,7))
+  sns.heatmap(df_cm, annot=True)
+  #sn.heatmap(df_cm, annot=True, annot_kws={"size": 16}) # font size
+  ##############################plt.show()
 mean_accuracy /= epochs
 print(f'------------------------------------------------\nEl accuracy promedio fue de {mean_accuracy}\n------------------------------------------------')
 
@@ -100,7 +125,6 @@ print(f'------------------------------------------------\nEl accuracy promedio f
 Emociones consideradas: neutral, calm, happy, sad, angry, fearful, disgust y surprised.
 
 Features consideradas: mfcc, chroma, mel, contrast y tonnetz.
-
 
 Considerando solo mfcc, chorma y mel con las mismas emociones: 0.7 y 0.7
 
