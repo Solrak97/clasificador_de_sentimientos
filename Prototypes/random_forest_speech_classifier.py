@@ -59,6 +59,28 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.metrics import plot_confusion_matrix
 
+import wandb
+from torchmetrics import F1Score, Recall, Precision, Accuracy
+
+sweep_config = {
+    "name": "Sweep Analisis Sentimientos",
+    "method": "random",
+    "parameters": {
+        "n_estimators": {
+            "values": [100, 200, 700]
+        },
+
+        "model": {
+            "values": ["Tree"]
+        }
+    }
+}
+
+sweep_id = wandb.sweep(sweep_config)
+
+count = 100
+wandb.agent(sweep_id, function=train, count=count)
+
 
 
 data = pd.read_pickle('data.pkl')
