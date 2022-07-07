@@ -78,33 +78,75 @@ def confussion_matrix(y_true, y_pred, classes):
 
     plt.show()
 
-mean_accuracy = 0
-epochs = 15
-for ep in range(epochs):
+mean_accuracy_200 = 0
+mean_accuracy_400 = 0
+mean_accuracy_600 = 0
+mean_accuracy_800 = 0
+mean_accuracy_1000 = 0
+'''
+Construcción de la matriz de resultados por corrida
+  model_performance[0] --> n_estimators
+  model_performance[1] --> f1
+  model_performance[2] --> acurracy
+  model_performance[3] --> precision
+  model_performance[4] --> recall
+  k_runs               --> cantidad de corridas para cada combinación
+  n_estimators         --> lista con el valor de tal hiperparámetro
+'''
+k_runs = 10
+n_estimators = np.repeat([200, 400, 600, 800, 1000] , k_runs).tolist()
+model_performance = [n_estimators, [], [], [], []]
+runs = len(model_performance[0])
+#runs = 15
 
-  # Building X
+'''
+Corriendo los modelos k veces para cada combinación de hiperparámetros
+'''
+for run in range(runs):
+  '''
+  Construyendo a X
+  '''
   ##############X = np.array([np.hstack([data['Duration'][i], data['MFCC'][i], data['Chroma'][i], data['Mel'][i], 
                           ############data['Contrast'][i], data['Tonnetz'][i]]) for i in range(len(data.index))])
   X = np.array([np.hstack([data['Duration'][i], data['MFCC'][i], data['Chroma'][i], data['Mel'][i]]) for i in range(len(data.index))])
 
-  # Building Y
+  '''
+  Construyendo a Y
+  '''
   Y = np.array(data['Ordinal_Emotion'])
   classes = np.array(data['Emotion'])
   classes = pd.DataFrame(data=classes)
 
-  # Building the Training and Test sets
+  '''
+  Construyendo los datasets de entrenamiento y de testeo
+  '''
   X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2)
 
   '''
   Model: Random Forest
   '''
-  classifier = RandomForestClassifier(n_estimators = 800, random_state = 0)
+  estimators = model_performance[0][run]
+  classifier = RandomForestClassifier(n_estimators = estimators, random_state = 0)
   c_p = classifier.fit(X_train, y_train).predict(X_test)
-  print(f'\n\n\n...epoch {ep+1}')
+  print(f'\n\n...run N°{run+1}')
+  print(f'...n_estimators {estimators}')
 
   accuracy = accuracy_score(y_true=y_test, y_pred=c_p)
   print(f'\nMy accuracy: {accuracy}')
-  mean_accuracy += accuracy
+  model_performance[2].append(accuracy)
+  
+  if model_performance[0][run] == 200:
+    mean_accuracy_200 += accuracy
+  elif model_performance[0][run] == 400:
+    mean_accuracy_400 += accuracy
+  elif model_performance[0][run] == 600:
+    mean_accuracy_600 += accuracy
+  elif model_performance[0][run] == 800:
+    mean_accuracy_800 += accuracy
+  elif model_performance[0][run] == 1000:
+    mean_accuracy_1000 += accuracy
+
+  '''Matriz de Confusión:
   report = classification_report(y_test, c_p)
   print(f'\n{report}')
   c_matrix = confusion_matrix(y_test, c_p)
@@ -115,10 +157,28 @@ for ep in range(epochs):
                     columns = [i for i in "ABCDEFGH"])
   plt.figure(figsize = (10,7))
   sns.heatmap(df_cm, annot=True)
+  '''
+  
   #sn.heatmap(df_cm, annot=True, annot_kws={"size": 16}) # font size
   ##############################plt.show()
-mean_accuracy /= epochs
-print(f'------------------------------------------------\nEl accuracy promedio fue de {mean_accuracy}\n------------------------------------------------')
+mean_accuracy_200 /= k_runs
+mean_accuracy_400 /= k_runs
+mean_accuracy_600 /= k_runs
+mean_accuracy_800 /= k_runs
+mean_accuracy_1000 /= k_runs
+print(f'------------------------------------------------')
+print(f'El accuracy promedio por modelo fue de:')
+print(f'\nn_estimators   acurracy')
+print(f'\n200            {mean_accuracy_200}')
+print(f'\n400            {mean_accuracy_400}')
+print(f'\n600            {mean_accuracy_600}')
+print(f'\n800            {mean_accuracy_800}')
+print(f'\n1000           {mean_accuracy_1000}')
+print(f'------------------------------------------------')
+
+
+
+
 
 """Precision 0.7 (100 estimators) y 0.647 (20 estimators)
 
